@@ -1,0 +1,59 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+@import '../../../styles/extends';
+
+.button {
+  position: relative;
+  display: block;
+  font-size: to-rem(14);
+  line-height: to-rem(21);
+  font-weight: 400;
+  text-align: center;
+
+  padding: 4px;
+  border: 1px;
+  border-style: solid;
+  border-color: $color-elements;
+
+  @include hover(border-color, $color-primary);
+
+  &-default {
+    @include hover(border-color, $color-primary);
+    @include hover(color, $color-primary);
+  }
+
+  &-default.active,
+  &-primary {
+    color: $color-white;
+    background-color: $color-primary;
+    border-color: $color-primary;
+
+    @include hover(box-shadow, $box-shadow-button);
+  }
+
+  &-primary {
+    padding: 10px;
+  }
+
+  &-primary.active {
+    color: $color-green;
+    background-color: $color-white;
+  }
+
+  &:disabled {
+    color: $color-elements;
+    border-color: $color-elements;
+    cursor: not-allowed;
+  }
+
+  &-borderless {
+    border-color: transparent;
+
+    @include hover(border-color, transparent);
+  }
+
+  &-w100 {
+    width: 100%;
+  }
+
+}

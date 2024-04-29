@@ -1,0 +1,48 @@
+{
+  "usesTypeScript": true,
+  "usesCssModule": true,
+  "cssPreprocessor": "scss",
+  "testLibrary": "Testing Library",
+  "component": {
+    "default": {
+      "customTemplates": {
+        "component": "templates/component-scss/TemplateName.tsx",
+        "styled": "templates/component-scss/TemplateName.module.scss",
+        "index": "templates/component-scss/index.ts"
+      },
+      "path": "src/ui/components",
+      "withLazy": false,
+      "withStory": false,
+      "withStyle": true,
+      "withTest": false,
+      "withIndex": true
+    },
+    "base-scss": {
+      "customTemplates": {
+        "component": "templates/component-scss/TemplateName.tsx",
+        "styled": "templates/component-scss/TemplateName.module.scss",
+        "index": "templates/component-scss/index.ts"
+      },
+      "path": "src/ui/base",
+      "withLazy": false,
+      "withStory": false,
+      "withStyle": true,
+      "withTest": false,
+      "withIndex": true
+    },
+    "module-scss": {
+      "customTemplates": {
+        "component": "templates/component-scss/TemplateName.tsx",
+        "styled": "templates/component-scss/TemplateName.module.scss",
+        "index": "templates/component-scss/index.ts"
+      },
+      "path": "src/ui/modules",
+      "withLazy": false,
+      "withStory": false,
+      "withStyle": true,
+      "withTest": false,
+      "withIndex": true
+    }
+  },
+  "usesStyledComponents": false
+}

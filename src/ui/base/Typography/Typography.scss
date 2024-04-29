@@ -1,0 +1,93 @@
+@import '../../../styles/variables';
+@import '../../../styles/mixins';
+@import '../../../styles/extends';
+
+.title {
+  font-weight: 700;
+  transition: color $duration-transition ease;
+
+  &-1 {
+    @extend %font-size-xxl;
+
+    letter-spacing: -0.01em;
+  }
+
+  &-2 {
+    @extend %font-size-xl;
+  }
+
+  &-3 {
+    @extend %font-size-lg;
+
+    font-weight: 600;
+  }
+}
+
+.typography {
+  display: block;
+  transition: color $duration-transition ease;
+
+  &-sm {
+    @extend %font-size-sm;
+  }
+
+  &-md {
+    @extend %font-size-md;
+  }
+
+  &-lg {
+    @extend %font-size-lg;
+  }
+
+  &-xl {
+    @extend %font-size-xl;
+  }
+
+  &-400 {
+    font-weight: 400;
+  }
+
+  &-500 {
+    font-weight: 500;
+  }
+
+  &-600 {
+    font-weight: 600;
+  }
+
+  &-700 {
+    font-weight: 700;
+  }
+}
+
+.text-transform {
+  &-capitalize {
+    text-transform: capitalize;
+  }
+
+  &-uppercase {
+    text-transform: uppercase;
+  }
+
+  &-lowercase {
+    text-transform: lowercase;
+  }
+
+  &-none {
+    text-transform: none;
+  }
+}
+
+.text-align {
+  &-center {
+    text-align: center;
+  }
+
+  &-left {
+    text-align: left;
+  }
+
+  &-right {
+    text-align: right;
+  }
+}
