@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
-import { Header } from '../Header';
-import { Footer } from '../Footer';
+import { Header, Footer } from 'ui/components';
 
 import './Page.scss';
 

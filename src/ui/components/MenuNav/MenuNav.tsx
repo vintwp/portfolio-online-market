@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { HeaderLink } from '../HeaderLink';
+import { HeaderLink } from 'ui/components';
 
 import './MenuNav.scss';
 

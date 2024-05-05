@@ -3,12 +3,9 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import clsx from 'clsx';
-
-import { ActiveButton } from '../ActiveButton';
-
-import { PerPage } from '../../../types/Filter';
-import { Icon } from '../../base';
-
+import { ActiveButton } from 'ui/components';
+import { Icon } from 'ui/base';
+import { PerPage } from 'types';
 import './Pagination.scss';
 
 export function getMaxPageNumber(

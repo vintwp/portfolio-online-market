@@ -1,8 +1,7 @@
 import React from 'react';
 
-import { ProductCard } from '../ProductCard';
-
-import { Product } from '../../../types/Product';
+import { ProductCard } from 'ui/components';
+import { Product } from 'types';
 
 import './ProductList.scss';
 

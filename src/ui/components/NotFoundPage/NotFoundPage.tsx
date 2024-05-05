@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Typography, Button } from '../../base';
+import { Typography, Button } from 'ui/base';
 
 import './NotFoundPage.scss';
 

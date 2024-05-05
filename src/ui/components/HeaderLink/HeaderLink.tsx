@@ -1,8 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { NavLink } from 'react-router-dom';
-
-import { HeaderLinks } from '../../../types/HeaderLinks';
+import { HeaderLinks } from 'types';
 
 type Props = HeaderLinks;
 

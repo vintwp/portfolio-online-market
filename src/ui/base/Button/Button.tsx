@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { Loader } from '../Loader';
+import { Loader } from 'ui/base';
 
 import './Button.scss';
 

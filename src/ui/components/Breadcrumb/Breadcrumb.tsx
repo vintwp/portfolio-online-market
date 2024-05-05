@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 
-import { Icon, Typography } from '../../base';
+import { Icon, Typography } from 'ui/base';
 
 import './Breadcrumb.scss';
 

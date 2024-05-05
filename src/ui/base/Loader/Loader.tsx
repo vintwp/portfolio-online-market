@@ -1,8 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import clsx from 'clsx';
-import './Loader.scss';
 import { createPortal } from 'react-dom';
 import { useEffect } from 'react';
+import './Loader.scss';
 
 type Props = {
   style?: React.CSSProperties;

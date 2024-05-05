@@ -11,14 +11,12 @@ import React, {
   useState,
 } from 'react';
 import clsx from 'clsx';
-import { useWindowSize } from '../../../hooks/useWindowSize';
-
+import { useWindowSize } from 'hooks';
 import { SliderTrack } from './SliderTrack';
 import { SliderNavDots } from './SliderNavDots';
 import { SliderButton } from './SliderButton';
-
-import './Slider.scss';
 import { SliderThumbs } from './SliderThumbs';
+import './Slider.scss';
 
 interface SliderContextInterface {
   slideWidth: number;

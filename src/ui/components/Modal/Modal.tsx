@@ -1,9 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useRef } from 'react';
-
-import './Modal.scss';
 import { createPortal } from 'react-dom';
-import { Typography } from '../../base';
+import { Typography } from 'ui/base';
+import './Modal.scss';
 
 type Props = {
   text: string;

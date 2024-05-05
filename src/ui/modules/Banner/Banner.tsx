@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { Slider, SliderItem } from '../Slider';
+import { Slider, SliderItem } from 'ui/modules';
 import './Banner.scss';
 
 type Props = { className?: string };

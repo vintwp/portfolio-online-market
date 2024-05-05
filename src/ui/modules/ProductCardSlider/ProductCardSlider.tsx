@@ -1,12 +1,11 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import clsx from 'clsx';
-import { Product } from 'types/Product';
 import { ProductCard, ProductCardSkeleton } from 'ui/components';
-import { getRandomKey } from 'utils';
 import { Typography } from 'ui/base';
-import { Slider, SliderItem } from 'ui/modules/Slider';
-
+import { Slider, SliderItem } from 'ui/modules';
+import { getRandomKey } from 'utils';
+import { Product } from 'types';
 import './ProductCardSlider.scss';
 
 type Props = {

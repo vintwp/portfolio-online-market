@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { Icon, Button, Typography } from '../../base';
-import { Logo } from '../Logo';
-import { useScrollToTop } from '../../../hooks';
+import { useScrollToTop } from 'hooks';
+import { Icon, Button, Typography } from 'ui/base';
+import { Logo } from 'ui/components';
 
 import './Footer.scss';
 

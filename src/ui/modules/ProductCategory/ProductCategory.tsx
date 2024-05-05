@@ -2,6 +2,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useLocation, useSearchParams } from 'react-router-dom';
+import { Typography } from 'ui/base';
 import {
   Pagination,
   getStartItemIndexInPage,
@@ -12,23 +13,11 @@ import {
   NoProducts,
   Breadcrumb,
   ProductList,
-} from '../../components';
-
-import {
-  getSearchWith,
-  getEnumKeyByEnumValue,
-  capitalize,
-} from '../../../utils';
-import {
-  PerPage,
-  SortBy,
-  Product,
-  SortByOptions,
-  PerPageOptions,
-} from '../../../types';
-import { useSearch } from '../../../hooks';
+} from 'ui/components';
+import { getSearchWith, getEnumKeyByEnumValue, capitalize } from 'utils';
+import { PerPage, SortBy, Product, SortByOptions, PerPageOptions } from 'types';
+import { useSearch } from 'hooks';
 import './ProductCategory.scss';
-import { Typography } from '../../base';
 
 type Props = {
   products: Product[];

@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import { useSearchParams } from 'react-router-dom';
-import { Icon } from '../../base';
-
-import { setSearchWith } from '../../../utils';
-
+import { Icon } from 'ui/base';
+import { setSearchWith } from 'utils';
 import './Search.scss';
 
 type Props = {

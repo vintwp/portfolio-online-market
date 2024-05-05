@@ -1,8 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
 import { useNavigate } from 'react-router-dom';
-import { ActiveButton } from '../ActiveButton';
-import { Icon, Typography } from '../../base';
+import { Icon, Typography } from 'ui/base';
+import { ActiveButton } from 'ui/components';
 
 type Props = {
   path?: string;

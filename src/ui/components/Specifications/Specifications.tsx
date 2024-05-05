@@ -1,4 +1,4 @@
-import { Typography } from '../../base';
+import { Typography } from 'ui/base';
 
 import './Specifications.scss';
 

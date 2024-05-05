@@ -1,11 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
+import { useAppDispatch } from 'app/hooks';
 import { Icon, Loader, Typography, Button } from 'ui/base';
 import { SelectNumber } from 'ui/components';
-import { useAppDispatch } from 'app/hooks';
-import { Product } from 'types/Product';
 import * as cartActions from 'features/cart';
+import { Product } from 'types';
 import './CartItem.scss';
 
 type Props = {

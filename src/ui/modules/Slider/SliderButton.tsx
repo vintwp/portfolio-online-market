@@ -2,8 +2,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import { debounce } from 'lodash-es';
-import { Button, Icon } from '../../base';
-
+import { Button, Icon } from 'ui/base';
 import './Slider.scss';
 
 type Props = {

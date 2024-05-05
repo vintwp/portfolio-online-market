@@ -1,8 +1,7 @@
 /* eslint-disable react/require-default-props */
 import React from 'react';
 import clsx from 'clsx';
-import { Typography } from '../../base';
-
+import { Typography } from 'ui/base';
 import './Counter.scss';
 
 type Props = {

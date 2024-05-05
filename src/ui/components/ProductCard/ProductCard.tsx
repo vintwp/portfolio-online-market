@@ -9,8 +9,7 @@ import { Typography } from 'ui/base';
 import { ButtonFavourite, ButtonAdd } from 'ui/components';
 import * as cartActions from 'features/cart';
 import * as favouritesActions from 'features/favourites';
-
-import { Product } from '../../../types';
+import { Product } from 'types';
 import './ProductCard.scss';
 
 type Props = {
