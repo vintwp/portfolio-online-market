@@ -131,3 +131,17 @@ export function capitalize(input: string): string {
 export function getRandomKey(): string {
   return Math.random().toString(36).slice(2, 8);
 }
+
+export function getLocalStorage(key: string) {
+  const data = localStorage.getItem(key);
+
+  if (!data) {
+    return null;
+  }
+
+  return JSON.parse(data);
+}
+
+export function setLocalStorage<T>(key: string, data: T) {
+  localStorage.setItem(key, JSON.stringify(data));
+}

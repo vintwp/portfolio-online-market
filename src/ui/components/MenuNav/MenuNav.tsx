@@ -13,9 +13,6 @@ type Props = {
 export const MenuNav: React.FC<Props> = ({ menuItems, block, isOpened }) => {
   return (
     <nav
-      // className={cn('menu', `${block ? `${block}__menu` : ''}`, {
-      //   opened: isOpened,
-      // })}
       className={clsx('menu', block && `${block}__menu`, isOpened && 'opened')}
     >
       <ul className={`menu__list ${block}__list`}>

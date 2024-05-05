@@ -1,44 +1,33 @@
 /* eslint-disable prettier/prettier */
-import React, { useContext, useEffect, useState } from 'react';
-import { ProductContext } from '../../context';
+import React, { useEffect, useState } from 'react';
 
-import { Button, Typography } from '../../ui/base';
-import { NoProducts, Modal, CartItem, ButtonBack } from '../../ui/components';
-
-import { ProductCart } from '../../types';
+import { Button, Typography } from 'ui/base';
+import { NoProducts, Modal, CartItem, ButtonBack } from 'ui/components';
+import { useAppSelector } from 'app/hooks';
 import './CartPage.scss';
 
 type Props = {};
 
 export const CartPage: React.FC<Props> = () => {
+  const { cart, loadingId } = useAppSelector(state => state.cart);
   const [isOpenErrorMessage, setIsOpenErrorMessage] = useState<boolean>(false);
   const [totalSum, setTotalSum] = useState<number>(0);
   const [totalItems, setTotaltems] = useState<number>(0);
-  const { cartItems, updateProductCartQty, addDelProductCart }
-    = useContext(ProductContext);
 
-  const itemsQty = cartItems.length;
-
-  const onChangeQty = (idX: string, qty: number) => {
-    return updateProductCartQty(idX, qty);
-  };
-
-  const onDeleteItem = (item: ProductCart) => {
-    return addDelProductCart(item);
-  };
+  const itemsQty = cart.length;
 
   useEffect(() => {
-    const total = cartItems.reduce((totalValue, item) => {
-      return totalValue + item.cartQty * item.price;
+    const total = cart.reduce((totalValue, item) => {
+      return totalValue + item.qty * item.item.price;
     }, 0);
 
-    const totalItemsQty = cartItems.reduce((totalValue, item) => {
-      return totalValue + item.cartQty;
+    const totalItemsQty = cart.reduce((totalValue, item) => {
+      return totalValue + item.qty;
     }, 0);
 
     setTotalSum(total);
     setTotaltems(totalItemsQty);
-  }, [cartItems]);
+  }, [cart]);
 
   return (
     <div className="cart-page">
@@ -49,12 +38,12 @@ export const CartPage: React.FC<Props> = () => {
       {itemsQty > 0 ? (
         <div className="cart-page__content">
           <div className="cart-page__list">
-            {cartItems.map(item => (
+            {cart.map(item => (
               <CartItem
-                key={item.itemId}
-                item={item}
-                onChangeQty={onChangeQty}
-                onDeleteItem={onDeleteItem}
+                key={item.item.itemId}
+                item={item.item}
+                quantity={item.qty}
+                loading={loadingId === item.item.itemId}
               />
             ))}
           </div>

@@ -2,41 +2,39 @@
 /* eslint-disable prettier/prettier */
 /* eslint-disable max-len */
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import clsx from 'clsx';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import * as cartActions from 'features/cart';
+import * as favouritesActions from 'features/favourites';
+import * as productsActions from 'features/products';
 
-import { getAllProducts } from 'utils/fetchClient';
-import {
-  getProductsByCategory,
-  filterArrayByFieldValue,
-  wait,
-} from '../../utils';
-
-import { ProductContext } from '../../context/ProductsContext';
-import {
-  Product,
-  ProductCart,
-  Colors,
-  ProductCategories,
-  ProductDetail,
-  SpecificationsPhone,
-  SpecificationsPhoneSimplified,
-} from '../../types';
-
-import { Slider, SliderItem, ProductCardSlider } from '../../ui/modules';
+import { Slider, SliderItem, ProductCardSlider } from 'ui/modules';
 import {
   ButtonFavourite,
   ButtonAdd,
   ButtonBack,
   Specifications,
   Breadcrumb,
-} from '../../ui/components';
+} from 'ui/components';
+import { Loader, Typography } from 'ui/base';
 
-import { Loader, Typography } from '../../ui/base';
-
+import {
+  Product,
+  Colors,
+  ProductCategories,
+  ProductDetail,
+  SpecificationsPhone,
+  SpecificationsPhoneSimplified,
+} from 'types';
+import {
+  getProductsByCategory,
+  filterArrayByFieldValue,
+  isItemInArray,
+} from 'utils';
+import { useScrollToTop } from 'hooks';
 import './ProductDetailsPage.scss';
-import { useScrollToTop } from '../../hooks';
 
 type ProductBySeries = Pick<Product, 'itemId' | 'color' | 'capacity'>;
 
@@ -45,27 +43,40 @@ export const ProductDetailsPage: React.FC = () => {
   const { itemId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { cart, loadingId: loadingIdCart } = useAppSelector(
+    state => state.cart,
+  );
+  const { favourites, loadingId: loadingIdFavourite } = useAppSelector(
+    state => state.favourites,
+  );
+  const { products } = useAppSelector(state => state.products);
 
-  const {
-    favouriteItems,
-    addDelProductFavourite,
-    cartItems,
-    addDelProductCart,
-  } = useContext(ProductContext);
-  const [product, setProduct] = useState<Product | null>(null);
+  const currentItem = products.find(item => item.itemId === itemId);
+
   const [productDetailed, setProductDetailed] = useState<ProductDetail>();
-  const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
+
   const [productsSameCapacity, setProductsSameCapacity] = useState<
     ProductBySeries[]
   >([]);
+
   const [productsSameColor, setProductsSameColor] = useState<ProductBySeries[]>(
     [],
   );
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isAddingToFav, setIsAddingToFav] = useState<boolean>(false);
-  const [isAddingToCart, setIsAddingToCart] = useState<boolean>(false);
-  const [isAddedToFav, setIsAddedToFav] = useState<boolean>(false);
-  const [isAddedToCart, setIsAddedToCart] = useState<boolean>(false);
+
+  const isAddedToCart = currentItem
+    ? isItemInArray(
+        currentItem,
+        [...cart].map(itm => itm.item),
+        'itemId',
+      )
+    : false;
+
+  const isAddedToFav = currentItem
+    ? isItemInArray(currentItem, favourites, 'itemId')
+    : false;
 
   const getColorHexByName = (colorName: string): string => {
     const indexOfKey = Object.keys(Colors).indexOf(colorName);
@@ -74,46 +85,26 @@ export const ProductDetailsPage: React.FC = () => {
   };
 
   const handleAddDelFav = () => {
-    setIsAddingToFav(true);
-    wait(100)
-      .then(() => {
-        if (product) {
-          addDelProductFavourite(product);
-          setIsAddedToFav(currentStatus => !currentStatus);
-        }
-      })
-      .finally(() => setIsAddingToFav(false));
+    if (currentItem) {
+      dispatch(favouritesActions.addDelProductFav(currentItem));
+    }
   };
 
   const handleAddDelCart = () => {
-    setIsAddingToCart(true);
-    wait(100)
-      .then(() => {
-        if (product) {
-          addDelProductCart(product as ProductCart);
-          setIsAddedToCart(currentStatus => !currentStatus);
-        }
-      })
-      .finally(() => setIsAddingToCart(false));
+    if (currentItem) {
+      dispatch(cartActions.addDelProductCart(currentItem));
+    }
   };
 
   useEffect(() => {
     if (itemId) {
       const itemCategory = location.pathname.split('/')[1] as ProductCategories;
 
-      const data = Promise.all([
-        getAllProducts(),
-        getProductsByCategory(itemCategory),
-      ]);
-
       setIsLoading(true);
-      data
+      getProductsByCategory(itemCategory)
         .then(result => {
-          const allProducts = result[0];
-          const itemsByCategory = result[1];
+          const itemsByCategory = result;
 
-          const currentProduct =
-            allProducts.find(item => item.itemId === itemId) || null;
           const currentProductDetailed = itemsByCategory.find(
             itemByCategory => itemByCategory.id === itemId,
           );
@@ -155,32 +146,21 @@ export const ProductDetailsPage: React.FC = () => {
               };
             }) as ProductBySeries[];
 
-            setProduct(currentProduct);
             setProductDetailed(currentProductDetailed);
-            setRelatedProducts(allProducts);
             setProductsSameColor(productGroupWithSameColor);
             setProductsSameCapacity(productGroupWithSameStorage);
-          }
-
-          if (currentProduct) {
-            const isItemInFavourite =
-              favouriteItems.findIndex(
-                item => item.itemId === currentProduct.itemId,
-              ) !== -1;
-
-            const isItemInCart =
-              cartItems.findIndex(
-                item => item.itemId === currentProduct.itemId,
-              ) !== -1;
-
-            setIsAddedToCart(isItemInCart);
-            setIsAddedToFav(isItemInFavourite);
           }
         })
         .then(() => backToTop())
         .finally(() => setIsLoading(false));
     }
   }, [itemId]);
+
+  useEffect(() => {
+    if (products.length === 0) {
+      dispatch(productsActions.getProducts());
+    }
+  }, []);
 
   return (
     <>
@@ -327,12 +307,12 @@ export const ProductDetailsPage: React.FC = () => {
                 <ButtonAdd
                   isAdded={isAddedToCart}
                   onClick={handleAddDelCart}
-                  isLoading={isAddingToCart}
+                  isLoading={loadingIdCart === itemId}
                 />
                 <ButtonFavourite
                   isAdded={isAddedToFav}
                   onClick={handleAddDelFav}
-                  isLoading={isAddingToFav}
+                  isLoading={loadingIdFavourite === itemId}
                 />
               </div>
               <div
@@ -385,10 +365,10 @@ export const ProductDetailsPage: React.FC = () => {
             product-detail__section
             product-detail__offers"
           >
-            {relatedProducts.length > 0 && (
+            {products.length > 0 && (
               <ProductCardSlider
                 title="You may also like"
-                products={relatedProducts}
+                products={products}
               />
             )}
           </section>

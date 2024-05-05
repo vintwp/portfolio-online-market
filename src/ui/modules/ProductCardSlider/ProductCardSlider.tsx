@@ -1,11 +1,11 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import clsx from 'clsx';
-import { Typography } from '../../base';
-import { ProductCard, ProductCardSkeleton } from '../../components';
-import { Product } from '../../../types/Product';
-import { Slider, SliderItem } from '../Slider';
-import { getRandomKey } from '../../../utils';
+import { Product } from 'types/Product';
+import { ProductCard, ProductCardSkeleton } from 'ui/components';
+import { getRandomKey } from 'utils';
+import { Typography } from 'ui/base';
+import { Slider, SliderItem } from 'ui/modules/Slider';
 
 import './ProductCardSlider.scss';
 
@@ -65,12 +65,12 @@ export const ProductCardSlider: React.FC<Props> = ({
           },
         ]}
       >
-        {isLoadProducts
-          && skeletonItems.map(item => (
+        {isLoadProducts &&
+          skeletonItems.map(item => (
             <SliderItem key={item.id}>{item.item}</SliderItem>
           ))}
-        {!isLoadProducts
-          && products.map(product => (
+        {!isLoadProducts &&
+          products.map(product => (
             <SliderItem key={product.id}>
               <ProductCard
                 id={product.id}

@@ -1,46 +1,41 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 
-import { SelectNumber } from '../SelectNumber';
-import { Icon, Loader, Typography, Button } from '../../base';
-import { ProductCart } from '../../../types/Product';
-
+import { Icon, Loader, Typography, Button } from 'ui/base';
+import { SelectNumber } from 'ui/components';
+import { useAppDispatch } from 'app/hooks';
+import { Product } from 'types/Product';
+import * as cartActions from 'features/cart';
 import './CartItem.scss';
 
 type Props = {
-  item: ProductCart;
-  onChangeQty: (idX: string, qty: number) => Promise<void>;
-  onDeleteItem: (item: ProductCart) => Promise<void>;
+  item: Product;
+  quantity: number;
+  loading?: boolean;
 };
 
 export const CartItem: React.FC<Props> = ({
   item,
-  onChangeQty,
-  onDeleteItem,
+  quantity,
+  loading = false,
 }) => {
-  const [qty, setQty] = useState<number>(item.cartQty);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const dispatch = useAppDispatch();
 
-  const handleOnChangeQty = (newQty: number) => {
-    setIsLoading(true);
+  const handleAddQuantity = () => {
+    dispatch(cartActions.increaseProductQty(item));
+  };
 
-    onChangeQty(item.itemId, newQty)
-      .then(() => {
-        setQty(newQty);
-      })
-      .catch(e => new Error(e))
-      .finally(() => setIsLoading(false));
+  const handleSubQuantity = () => {
+    dispatch(cartActions.decreaseProductQty(item));
   };
 
   const handleOnDeleteItem = () => {
-    setIsLoading(true);
-
-    onDeleteItem(item).finally(() => setIsLoading(false));
+    dispatch(cartActions.addDelProductCart(item));
   };
 
   return (
     <div className="cart-item">
-      {isLoading && <Loader classModifier="cart-item__loader" />}
+      {loading && <Loader classModifier="cart-item__loader" />}
       <Button
         type="default"
         borderless
@@ -62,13 +57,14 @@ export const CartItem: React.FC<Props> = ({
         </div>
       </Link>
       <SelectNumber
-        startValue={qty}
-        onChange={v => handleOnChangeQty(v)}
+        value={quantity}
+        onAdd={handleAddQuantity}
+        onSub={handleSubQuantity}
         className="cart-item__select-number"
         cypressParam="productQauntity"
       />
       <Typography type="title" level="2" className="cart-item__price">
-        {`$${qty * item.price}`}
+        {`$${quantity * item.price}`}
       </Typography>
     </div>
   );

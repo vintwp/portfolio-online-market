@@ -17,6 +17,7 @@ export interface Product {
   [key: string]: string | number | boolean | string[];
 }
 
-export interface ProductCart extends Product {
-  cartQty: number;
+export interface ProductCart {
+  item: Product;
+  qty: number;
 }

@@ -15,4 +15,5 @@ export enum Colors {
   graphite = '#5c5b57',
   midnight = '#171e27',
   starlight = '#f9f33ee',
+  spaceblack = '#505150',
 }

@@ -89,5 +89,7 @@ module.exports = {
       },
     ],
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
   },
 };

@@ -1,35 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { Product } from 'types';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react';
 import { Typography } from 'ui/base';
 import { ShopByCategory } from 'ui/components';
 import { Banner, ProductCardSlider } from 'ui/modules';
-
-import { getBrandNewProducts, getHotPriceProducts, wait } from 'utils';
+import { useAppDispatch, useAppSelector } from 'app/hooks';
+import * as productsActions from 'features/products';
 
 import './HomePage.scss';
 
 type Props = {};
 
 export const HomePage: React.FC<Props> = () => {
-  const [hotPriceProducts, setHotPriceProducts] = useState<Product[]>([]);
-  const [brandNewProducts, setBrandNewProducts] = useState<Product[]>([]);
-
-  const [hotPriceLoad, setHotPriceLoad] = useState<boolean>(false);
-  const [brandNewLoad, setBrandNewLoad] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
+  const { hotPriceProducts, brandNewProducts, loading } = useAppSelector(
+    state => state.products,
+  );
 
   useEffect(() => {
-    setHotPriceLoad(true);
-    setBrandNewLoad(true);
-
-    wait(500).then(() => {
-      getHotPriceProducts()
-        .then(setHotPriceProducts)
-        .finally(() => setHotPriceLoad(false));
-
-      getBrandNewProducts()
-        .then(setBrandNewProducts)
-        .finally(() => setBrandNewLoad(false));
-    });
+    dispatch(productsActions.getProducts());
   }, []);
 
   return (
@@ -44,7 +32,7 @@ export const HomePage: React.FC<Props> = () => {
         <ProductCardSlider
           title="Hot prices"
           products={hotPriceProducts}
-          isLoadProducts={hotPriceLoad}
+          isLoadProducts={loading}
         />
       </section>
       <section className="home__section">
@@ -54,7 +42,7 @@ export const HomePage: React.FC<Props> = () => {
         <ProductCardSlider
           title="Brand new models"
           products={brandNewProducts}
-          isLoadProducts={brandNewLoad}
+          isLoadProducts={loading}
         />
       </section>
     </div>

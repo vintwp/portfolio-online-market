@@ -45,33 +45,23 @@ export async function getAllProducts() {
   }
 }
 
-export async function getBrandNewProducts() {
-  try {
-    const products = await getAllProducts();
-    const productsWithImagePath = makePathForImages(products);
-    const latestYear = Math.max(...products.map(product => product.year));
+export function getBrandNewProducts(products: Product[]) {
+  const productsWithImagePath = makePathForImages(products);
+  const latestYear = Math.max(...products.map(product => product.year));
 
-    return productsWithImagePath.filter(product => product.year === latestYear);
-  } catch {
-    throw new Error();
-  }
+  return productsWithImagePath.filter(product => product.year === latestYear);
 }
 
-export async function getHotPriceProducts() {
-  try {
-    const products = await getAllProducts();
-    const productsWithImagePath = makePathForImages(products);
+export function getHotPriceProducts(products: Product[]) {
+  const productsWithImagePath = makePathForImages(products);
 
-    return productsWithImagePath.sort((product1, product2) => {
-      return (
-        product2.fullPrice -
-        product2.price -
-        (product1.fullPrice - product1.price)
-      );
-    });
-  } catch {
-    throw new Error();
-  }
+  return productsWithImagePath.sort((product1, product2) => {
+    return (
+      product2.fullPrice -
+      product2.price -
+      (product1.fullPrice - product1.price)
+    );
+  });
 }
 
 export async function getProductsByCategory(type: ProductCategories) {

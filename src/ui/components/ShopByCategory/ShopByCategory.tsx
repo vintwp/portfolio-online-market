@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Typography } from '../../base';
+import { Typography } from 'ui/base';
 
+import { ProductCategories } from 'types';
+import { getProductsQtyByCategory } from 'utils';
 import './ShopByCategory.scss';
-import { ProductCategories } from '../../../types';
-import { getProductsQtyByCategory } from '../../../utils';
 
 type Props = {};
 

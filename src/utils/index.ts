@@ -11,6 +11,8 @@ import {
   isItemInArray,
   capitalize,
   getRandomKey,
+  getLocalStorage,
+  setLocalStorage,
 } from './utils';
 
 import {
@@ -50,4 +52,6 @@ export {
   capitalize,
   getRandomKey,
   getProductsQtyByCategory,
+  getLocalStorage,
+  setLocalStorage,
 };

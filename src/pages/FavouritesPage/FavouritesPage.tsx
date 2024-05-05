@@ -1,23 +1,17 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { useSearch } from '../../hooks';
-
-import { ProductContext } from '../../context/ProductsContext';
-import {
-  NoProducts,
-  ProductCard,
-  Counter,
-  Breadcrumb,
-} from '../../ui/components';
+import { useSearch } from 'hooks';
+import { NoProducts, ProductCard, Counter, Breadcrumb } from 'ui/components';
+import { Typography } from 'ui/base';
 
 import './FavouritesPage.scss';
-import { Typography } from '../../ui/base';
+import { useAppSelector } from 'app/hooks';
 
 type Props = {};
 
 export const FavouritesPage: React.FC<Props> = () => {
-  const { favouriteItems } = useContext(ProductContext);
-  const searchItems = useSearch(favouriteItems, 'name');
+  const { favourites } = useAppSelector(state => state.favourites);
+  const searchItems = useSearch(favourites, 'name');
   const location = useLocation();
   const itemsQty = searchItems.length;
 
